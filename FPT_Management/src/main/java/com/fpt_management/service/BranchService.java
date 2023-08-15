@@ -28,4 +28,22 @@ public class BranchService {
         }
         return branchList;
     }
+
+    public Branch findById(int id){
+        Branch branch = null;
+        String sql = "select * from branch where branchId = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int branchId = resultSet.getInt("branchId");
+                String branchName = resultSet.getString("branchName");
+                branch = new Branch(branchId, branchName);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return branch;
+    }
 }

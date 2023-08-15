@@ -38,8 +38,9 @@
         <property name="maxUploadSize" value="10485760000" />
     </bean>
 
-    <mvc:resources mapping="/**" location="F:\CodeGYM\Module4_Spring\FPT_Management\src\main\webapp" />
+    <mvc:resources mapping="/**" location="file:F:/CodeGYM/Module4_Spring/FPT_Management/src/main/webapp/img/" />
 
 
     <bean class="com.fpt_management.service.StaffService" name="staffService"></bean>
+    <bean class="com.fpt_management.service.BranchService" name="branchService"></bean>
 </beans>

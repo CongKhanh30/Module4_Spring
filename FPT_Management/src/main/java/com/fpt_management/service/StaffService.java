@@ -17,7 +17,7 @@ public class StaffService {
 
     public List<Staff> findAll(){
         List<Staff> staffList = new ArrayList<>();
-        String sql = "select * from staff;";
+        String sql = "select staff.*, branch.branchName from staff inner join branch on staff.branchId = branch.branchId order by staff.staffID;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -29,7 +29,7 @@ public class StaffService {
                 int salary = resultSet.getInt("salary");
                 int branchId = resultSet.getInt("branchId");
                 String branchName = resultSet.getString("branchName");
-                String image = resultSet.getString("image");
+                String image = resultSet.getString("img");
                 Branch branch = new Branch(branchId, branchName);
 
                 Staff staff = new Staff(staffId, staffCode, staffName, age, salary, branch, image);
@@ -79,7 +79,7 @@ public class StaffService {
         return null;
     }
 
-    public void edit (int id, Staff staff){
+    public void edit (Staff staff){
         String sql = "update staff set staffCode, staffName=?, age=?, salary=?, branchId=?, img=? where staffId = ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class StaffService {
             preparedStatement.setInt(4, staff.getSalary());
             preparedStatement.setInt(5, staff.getBranch().getBranchId());
             preparedStatement.setString(6, staff.getImg());
-            preparedStatement.setInt(7, id);
+            preparedStatement.setInt(7, staff.getStaffId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

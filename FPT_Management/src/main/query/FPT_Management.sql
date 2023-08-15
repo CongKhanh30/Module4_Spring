@@ -29,11 +29,11 @@ insert into Branch(branchName)
 values ('Marketing');
 
 insert into Staff(staffCode, staffName, age, salary, branchId, img)
-values ( 'FT01', 'Nguyễn Văn Quang', '35',10000000 , 1, '/img/quang.jpg');
+values ( 'FT01', 'Nguyễn Văn Quang', '35',10000000 , 1, 'quang.jpg');
 insert into Staff(staffCode, staffName, age, salary, branchId, img)
-values ( 'FT02', 'Trần Văn Huỳnh', '23',11000000 , 2, '/img/huynh.jpg');
+values ( 'FT02', 'Trần Văn Huỳnh', '23',11000000 , 2, 'huynh.jpg');
 insert into Staff(staffCode, staffName, age, salary, branchId, img)
-values ( 'FT03', 'Nguyễn Viết Đạt', '26',9000000 , 3, '/img/dat.jpg');
+values ( 'FT03', 'Nguyễn Viết Đạt', '26',9000000 , 3, 'dat.jpg');
 
 
 
