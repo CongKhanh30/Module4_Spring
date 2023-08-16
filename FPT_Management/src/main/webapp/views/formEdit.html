@@ -2,9 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Edit</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
-
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-header font-weight-bold">
+            Edit Staff
+        </div>
+        <div class="card-body">
+            <form action="/staff/edit" method="post" th:object="${staff}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="id">Id</label>
+                    <input type="text" class="form-control" id="id" th:value="${staff.staffId}" name="staffId" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="img">Image</label>
+                    File:    <input type="file" name="fileImg" onchange="showImg(this.files)" class="form-control" id="img"  ><br>
+                    <img id="fileImg" width="200">
+                </div>
+                <div class="form-group">
+                    <label for="staffCode">Staff Code</label>
+                    <input type="text" th:field="*{staffCode}" class="form-control" id="staffCode" placeholder="Enter Staff Code">
+                </div>
+                <div class="form-group">
+                    <label for="staffName">Staff Name</label>
+                    <input type="text" th:field="*{staffName}" class="form-control" id="staffName" placeholder="Enter Name">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" th:field="*{age}" class="form-control" id="age" placeholder="Enter Age">
+                </div>
+                <div class="form-group">
+                    <label for="salary">Salary</label>
+                    <input type="number" th:field="*{salary}" class="form-control" id="salary" placeholder="Enter Salary">
+                </div>
+                <div class="form-group">
+                    <label for="branch">Branch</label>
+                    <select class="custom-select" id="branch" name="branchId" placeholder="Select class">
+                        <!-- lấy danh sách class và hiển thị -> foreach -->
+                        <!-- arr.foreach(item => {
+                            <option :selected="{item.id = detail.id ? true : false}" :value="{item.id}">{item.className}</option>
+                        }) -->
+                        <option th:each="branch : ${branchList}" th:text="${branch.branchName}" th:value="${branch.branchId}"></option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="/employees" class="btn btn-outline-primary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+<script>
+    function showImg(file) {
+        let img = document.getElementById("fileImg");
+        img.src = URL.createObjectURL(file[0]);
+    }
+</script>

@@ -80,7 +80,7 @@ public class StaffService {
     }
 
     public void edit (Staff staff){
-        String sql = "update staff set staffCode, staffName=?, age=?, salary=?, branchId=?, img=? where staffId = ?;";
+        String sql = "update staff set staffCode=?, staffName=?, age=?, salary=?, branchId=?, img=? where staffId = ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, staff.getStaffCode());

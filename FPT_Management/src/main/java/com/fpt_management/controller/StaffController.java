@@ -58,17 +58,25 @@ public class StaffController {
     @GetMapping("/formEdit/{id}")
     public ModelAndView formEdit(@PathVariable int id){
         Staff staff = staffService.findById(id);
-
         ModelAndView modelAndView = new ModelAndView("formEdit");
         modelAndView.addObject("staff" , staff);
-        modelAndView.addObject("brandList",branchService.getAll());
+        modelAndView.addObject("branchList",branchService.getAll());
         return modelAndView;
     }
     @PostMapping("/edit")
-    public ModelAndView edit(@ModelAttribute Staff staff){
+    public ModelAndView edit(@ModelAttribute Staff staff,@RequestParam MultipartFile fileImg, int branchId){
+        String nameFile = fileImg.getOriginalFilename();
+        try {
+            fileImg.transferTo(new File("F:/CodeGYM/Module4_Spring/FPT_Management/src/main/webapp/img/" + nameFile));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        staff.setImg(nameFile);
+        Branch branch = branchService.findById(branchId);
+        staff.setBranch(branch);
         ModelAndView modelAndView = new ModelAndView("redirect:/staff");
-        Staff newStaff = new Staff(staff.getStaffCode(), staff.getStaffName() , staff.getAge() , staff.getSalary() , staff.getBranch(), staff.getImg());
-        staffService.edit(newStaff);
+//        Staff newStaff = new Staff(staff.getStaffCode(), staff.getStaffName() , staff.getAge() , staff.getSalary() , staff.getBranch(), staff.getImg());
+        staffService.edit(staff);
         return modelAndView;
     }
     @GetMapping("/information/{id}")
